@@ -21,9 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // PROFILE
 
-Route::post('/profile/upload_avatar', 'UserController@upload_avatar')->name('profile.upload_avatar');
+Route::post('/profile/upload_avatar', 'UserController@upload_avatar')->name('profile.upload_avatar')->middleware('auth');;
 Route::get('/profile/{id}', 'UserController@profile')->name('profile');
-Route::get('/friends', 'UserController@my_friends')->name('my_friends');
+Route::get('/friends', 'UserController@my_friends')->name('my_friends')->middleware('auth');;
+Route::post('/post_record', 'UserController@post_record')->name('post_record')->middleware('auth');;
 
 // PEOPLE AND FRIENDS
 Route::get('/people', 'PeopleController@people')->name('people');
@@ -44,4 +45,4 @@ Route::post('/people/delete_friend', 'PeopleController@delete_friend')
 	->middleware('auth');
 
 // SUBSCRIBERS
-Route::get('/subscribers', 'UserController@subscribers')->name('subscribers');
+Route::get('/subscribers', 'UserController@subscribers')->name('subscribers')->middleware('auth');;

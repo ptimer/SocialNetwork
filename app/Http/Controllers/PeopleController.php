@@ -12,8 +12,11 @@ class PeopleController extends Controller
 {
     public function people()
     {
-
-    	return view('people', ['people' => User::where('id', '!=', auth()->id())->get()]);
+        if(Auth::check()){
+            return view('people', ['people' => User::where('id', '!=', auth()->id())->get()]);
+        }else{
+            return view('people', ['people' => User::all()]);
+        }
     }
 
     public function add_friend(Request $request)

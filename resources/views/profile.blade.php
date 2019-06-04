@@ -29,6 +29,24 @@
                             </div>
                         </form>
                     @endif
+
+
+                    @if(Auth::check() && Auth::user()->id == $user_id)
+                        <form method="POST" action="{{ route('post_record') }}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Новый пост</label>
+                                <textarea class="form-control" name="post" rows="3"></textarea>
+                            </div>
+                            <input type="submit" class="btn-primary btn" value="Опубликовать">
+                        </form>
+                    @endif
+
+                    @foreach($posts as $post)
+                        
+                        <p class="font-weight-normal">{{ $post->description }}</p>
+
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 use Auth;
 use Image;
 
@@ -31,11 +32,14 @@ class UserController extends Controller
 
 	public function profile(Request $request)
 	{
+
+		$posts = User::find($request->id)->posts;
+
 		if(Auth::check() && $request->id == Auth::user()->id)
 		{
-			return view('profile', ['user' => Auth::user()]);
+			return view('profile', ['user' => Auth::user(), 'posts' => $posts, 'user_id' => $request->id]);
 		}else{
-			return view('profile', ['user' => User::find($request->id)]);
+			return view('profile', ['user' => User::find($request->id) , 'posts' => $posts, 'user_id' => $request->id]);
 		}
 	}
 
@@ -48,5 +52,16 @@ class UserController extends Controller
 	public function subscribers()
 	{
 		return view('subscribers');
+	}
+
+
+	public function post_record(Request $request)
+	{
+		$post = new Post();
+		$post->description = $request->post;
+		$post->user_id = Auth::user()->id;
+		$post->save();
+
+		return redirect()->back();
 	}
 }
