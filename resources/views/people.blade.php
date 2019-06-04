@@ -25,14 +25,19 @@
 
   
                         @foreach ($friends as $friend)
+                            {{-- Отменить заявку (для юзера, который отправляет) --}}
+
                             @if($friend->user_id_2 === $person->id && $friend->user_id_1 === Auth::user()->id)
                                 @php $flag = true; @endphp
                             @endif
-
+                            
+                            {{-- Подтвердить заявку (для юзера, который получает) --}}
                             @if($friend->user_id_2 === Auth::user()->id && $friend->user_id_1 === $person->id)
                                 @php $flag = 'confirm'; @endphp
                             @endif
  
+
+                            {{-- В друзьях --}}
                             @if(
 
                                 ($friend->user_id_1 === $person->id && $friend->user_id_2 === Auth::user()->id && $friend->approved == true) 

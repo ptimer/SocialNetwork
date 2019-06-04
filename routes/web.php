@@ -30,9 +30,15 @@ Route::get('/people', 'PeopleController@people')->name('people');
 Route::post('/people/add_friend', 'PeopleController@add_friend')
 	->name('people.add_friend')
 	->middleware('auth');
+
 Route::post('/people/cancel_friend', 'PeopleController@cancel_friend')
 	->name('people.cancel_friend')
 	->middleware('auth');
+
 Route::post('/people/confirm_friend', 'PeopleController@confirm_friend')
 	->name('people.confirm_friend')
+	->middleware('auth');
+
+Route::post('/people/delete_friend', 'PeopleController@delete_friend')
+	->name('people.delete_friend')
 	->middleware('auth');

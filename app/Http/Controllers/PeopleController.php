@@ -13,7 +13,7 @@ class PeopleController extends Controller
     public function people()
     {
 
-    	return view('people', ['people' => User::all()]);
+    	return view('people', ['people' => User::where('id', '!=', auth()->id())->get()]);
     }
 
     public function add_friend(Request $request)
@@ -44,6 +44,8 @@ class PeopleController extends Controller
     	return redirect('people');
     }
 
+    // Отменить заявку
+
     public function cancel_friend(Request $request)
     {
     	if(!$request->id != Auth::user()->id)
@@ -69,6 +71,26 @@ class PeopleController extends Controller
     		
     		$f->approved = 1;
     		$f->save();
+    	}
+
+    	return redirect('people');
+    }
+
+    // Удалить друга
+
+    public function delete_friend(Request $request)
+    {
+    	if(!$request->id != Auth::user()->id)
+    	{
+    		Friend::where([
+                    ['user_id_1', '=', Auth::user()->id],
+                    ['user_id_2', '=', $request->id]
+                ])->delete();
+
+    		Friend::where([
+                    ['user_id_1', '=', $request->id],
+                    ['user_id_2', '=', Auth::user()->id]
+                ])->delete();
     	}
 
     	return redirect('people');

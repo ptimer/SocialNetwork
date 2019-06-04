@@ -8,17 +8,49 @@
                 <div class="card-header">Мои друзья</div>
                 
 
-                @foreach(Auth::user()->friendsOfAnother as $person)
-                    <a href="{{ route('profile', ['id' => $person->user1->id]) }}">{{ $person->user1->lastname }} {{ $person->user1->firstname }}</a>
-                        <img src="/uploads/avatars/{{ $person->user1->avatar }}" style="width: 150px; height: 150px;">
+                @php 
+                    $flag = false;
+                    // Merge two collections in order to foreach all friends user ever had
+                    $friendsOfAnother = Auth::user()->friendsOfAnother;
+                    $friendsOfAuth = Auth::user()->friends;
+                    $friends = $friendsOfAnother->merge($friendsOfAuth);
+              
 
-                        <form method="POST" action="{{ route('people.add_friend') }}">
-                            @csrf
-                            <div class="form-group row">
-                                    <input type="hidden" name="id" value="{{ $person->user1->id }}">
-                                    <input type="submit" value="Удалить из друзей" class="btn-primary btn">
-                            </div>
-                        </form>
+                @endphp
+
+
+                @foreach($friends as $friend)
+                    @if(
+
+                            ($friend->user_id_2 === Auth::user()->id && $friend->approved == true) 
+                        )
+                        <a href="{{ route('profile', ['id' => $friend->user1->id]) }}">{{ $friend->user1->lastname }} {{ $friend->user1->firstname }}</a>
+                            <img src="/uploads/avatars/{{ $friend->user1->avatar }}" style="width: 150px; height: 150px;">
+
+                            <form method="POST" action="{{ route('people.delete_friend') }}">
+                                @csrf
+                                <div class="form-group row">
+                                        <input type="hidden" name="id" value="{{ $friend->user1->id }}">
+                                        <input type="submit" value="Удалить из друзей" class="btn-primary btn">
+                                </div>
+                            </form>
+
+
+                    @elseif(
+                            ($friend->user_id_1 === Auth::user()->id && $friend->approved == true) 
+                        )
+                    
+                        <a href="{{ route('profile', ['id' => $friend->user2->id]) }}">{{ $friend->user2->lastname }} {{ $friend->user2->firstname }}</a>
+                            <img src="/uploads/avatars/{{ $friend->user2->avatar }}" style="width: 150px; height: 150px;">
+
+                            <form method="POST" action="{{ route('people.delete_friend') }}">
+                                @csrf
+                                <div class="form-group row">
+                                        <input type="hidden" name="id" value="{{ $friend->user2->id }}">
+                                        <input type="submit" value="Удалить из друзей" class="btn-primary btn">
+                                </div>
+                            </form>
+                    @endif
                 @endforeach
 
             </div>
