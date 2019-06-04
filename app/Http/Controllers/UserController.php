@@ -41,9 +41,12 @@ class UserController extends Controller
 
 	public function my_friends()
 	{
-
-			
-
 		return view('friends');
+	}
+
+
+	public function subscribers()
+	{
+		return view('subscribers');
 	}
 }

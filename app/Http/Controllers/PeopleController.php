@@ -95,4 +95,5 @@ class PeopleController extends Controller
 
     	return redirect('people');
     }
+
 }

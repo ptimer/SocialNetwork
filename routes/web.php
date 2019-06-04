@@ -25,7 +25,7 @@ Route::post('/profile/upload_avatar', 'UserController@upload_avatar')->name('pro
 Route::get('/profile/{id}', 'UserController@profile')->name('profile');
 Route::get('/friends', 'UserController@my_friends')->name('my_friends');
 
-// PEOPLE
+// PEOPLE AND FRIENDS
 Route::get('/people', 'PeopleController@people')->name('people');
 Route::post('/people/add_friend', 'PeopleController@add_friend')
 	->name('people.add_friend')
@@ -42,3 +42,6 @@ Route::post('/people/confirm_friend', 'PeopleController@confirm_friend')
 Route::post('/people/delete_friend', 'PeopleController@delete_friend')
 	->name('people.delete_friend')
 	->middleware('auth');
+
+// SUBSCRIBERS
+Route::get('/subscribers', 'UserController@subscribers')->name('subscribers');
