@@ -31,11 +31,19 @@ class UserController extends Controller
 
 	public function profile(Request $request)
 	{
-		if($request->id == Auth::user()->id)
+		if(Auth::check() && $request->id == Auth::user()->id)
 		{
 			return view('profile', ['user' => Auth::user()]);
+		}else{
+			return view('profile', ['user' => User::find($request->id)]);
 		}
+	}
 
-		return $request->id;
+	public function my_friends()
+	{
+
+			
+
+		return view('friends');
 	}
 }
