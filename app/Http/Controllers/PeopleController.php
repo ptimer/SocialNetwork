@@ -99,4 +99,56 @@ class PeopleController extends Controller
     	return redirect('people');
     }
 
+    // Делаем подписчиком
+
+
+    public function make_subscriber(Request $request)
+    {
+        if(!$request->id != Auth::user()->id)
+        {
+            $f1 = Friend::where([
+                    ['user_id_1', '=', Auth::user()->id],
+                    ['user_id_2', '=', $request->id]
+                ])->first();
+
+            if($f1 !== null){
+                Friend::where([
+                    ['user_id_1', '=', Auth::user()->id],
+                    ['user_id_2', '=', $request->id]
+                ])->delete();
+
+                $subscriber = new Friend;
+                $subscriber->user_id_1 = $request->id;
+                $subscriber->user_id_2 = Auth::user()->id;
+                $subscriber->approved = false;
+                $subscriber->save();
+
+                return redirect('people');
+            }
+
+            $f2 = Friend::where([
+                    ['user_id_1', '=', $request->id],
+                    ['user_id_2', '=', Auth::user()->id]
+                ])->first();
+
+            if($f2 !== null){
+                Friend::where([
+                    ['user_id_1', '=', $request->id],
+                    ['user_id_2', '=', Auth::user()->id]
+                ])->delete();
+
+                $subscriber = new Friend;
+                $subscriber->user_id_1 = $request->id;
+                $subscriber->user_id_2 = Auth::user()->id;
+                $subscriber->approved = false;
+                $subscriber->save();
+
+                return redirect('people');
+            }
+        }
+
+    }
+
+
+
 }

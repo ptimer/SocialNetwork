@@ -24,7 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/profile/upload_avatar', 'UserController@upload_avatar')->name('profile.upload_avatar')->middleware('auth');;
 Route::get('/profile/{id}', 'UserController@profile')->name('profile');
 Route::get('/friends', 'UserController@my_friends')->name('my_friends')->middleware('auth');;
-Route::post('/post_record', 'UserController@post_record')->name('post_record')->middleware('auth');;
 
 // PEOPLE AND FRIENDS
 Route::get('/people', 'PeopleController@people')->name('people');
@@ -44,5 +43,15 @@ Route::post('/people/delete_friend', 'PeopleController@delete_friend')
 	->name('people.delete_friend')
 	->middleware('auth');
 
+Route::post('/people/make_subscriber', 'PeopleController@make_subscriber')
+	->name('people.make_subscriber')
+	->middleware('auth');
+
 // SUBSCRIBERS
 Route::get('/subscribers', 'UserController@subscribers')->name('subscribers')->middleware('auth');;
+
+// POSTS
+
+Route::post('/post_record', 'PostsController@store')->name('post_record')->middleware('auth');
+Route::post('/post_update', 'PostsController@update')->name('post_update')->middleware('auth');
+Route::post('/post_delete', 'PostsController@delete')->name('post_delete')->middleware('auth');;

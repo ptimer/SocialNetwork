@@ -43,9 +43,16 @@
                     @endif
 
                     @foreach($posts as $post)
+                        <div style="border: 1px solid black;">
+                            <p class="font-weight-normal">{{ $post->description }}</p>
                         
-                        <p class="font-weight-normal">{{ $post->description }}</p>
-
+                            <i>Дата публикации: {{ $post->created_at }}</i>
+                        </div>
+                        
+                        @if(Auth::check() && Auth::user()->id == $user_id)       
+                           <a href="{{ route('post_update') }}" class="btn btn-outline-success">Редактировать</a> 
+                           <a href="{{ route('post_delete') }}" class="btn btn-outline-danger">Удалить</a> 
+                        @endif
                     @endforeach
                 </div>
             </div>

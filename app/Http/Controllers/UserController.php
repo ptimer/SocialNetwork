@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Post;
 use Auth;
 use Image;
 
@@ -54,14 +53,4 @@ class UserController extends Controller
 		return view('subscribers');
 	}
 
-
-	public function post_record(Request $request)
-	{
-		$post = new Post();
-		$post->description = $request->post;
-		$post->user_id = Auth::user()->id;
-		$post->save();
-
-		return redirect()->back();
-	}
 }

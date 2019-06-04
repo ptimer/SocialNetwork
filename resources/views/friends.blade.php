@@ -27,7 +27,7 @@
                         <a href="{{ route('profile', ['id' => $friend->user1->id]) }}">{{ $friend->user1->lastname }} {{ $friend->user1->firstname }}</a>
                             <img src="/uploads/avatars/{{ $friend->user1->avatar }}" style="width: 150px; height: 150px;">
 
-                            <form method="POST" action="{{ route('people.delete_friend') }}">
+                            <form method="POST" action="{{ route('people.make_subscriber') }}">
                                 @csrf
                                 <div class="form-group row">
                                         <input type="hidden" name="id" value="{{ $friend->user1->id }}">
@@ -43,7 +43,7 @@
                         <a href="{{ route('profile', ['id' => $friend->user2->id]) }}">{{ $friend->user2->lastname }} {{ $friend->user2->firstname }}</a>
                             <img src="/uploads/avatars/{{ $friend->user2->avatar }}" style="width: 150px; height: 150px;">
 
-                            <form method="POST" action="{{ route('people.delete_friend') }}">
+                            <form method="POST" action="{{ route('people.make_subscriber') }}">
                                 @csrf
                                 <div class="form-group row">
                                         <input type="hidden" name="id" value="{{ $friend->user2->id }}">
