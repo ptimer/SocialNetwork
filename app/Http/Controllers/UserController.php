@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Like;
 use Auth;
 use Image;
 
@@ -34,11 +35,19 @@ class UserController extends Controller
 
 		$posts = User::find($request->id)->posts;
 
+
 		if(Auth::check() && $request->id == Auth::user()->id)
 		{
-			return view('profile', ['user' => Auth::user(), 'posts' => $posts, 'user_id' => $request->id]);
+			return view('profile', ['user' => Auth::user(), 
+									'posts' => $posts, 
+									'user_id' => $request->id,
+									]);
 		}else{
-			return view('profile', ['user' => User::find($request->id) , 'posts' => $posts, 'user_id' => $request->id]);
+			return view('profile', [
+									'user' => User::find($request->id) , 
+									'posts' => $posts, 
+									'user_id' => $request->id,
+									]);
 		}
 	}
 

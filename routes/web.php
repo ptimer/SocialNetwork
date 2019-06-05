@@ -21,9 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // PROFILE
 
-Route::post('/profile/upload_avatar', 'UserController@upload_avatar')->name('profile.upload_avatar')->middleware('auth');;
+Route::post('/profile/upload_avatar', 'UserController@upload_avatar')->name('profile.upload_avatar')->middleware('auth');
 Route::get('/profile/{id}', 'UserController@profile')->name('profile');
-Route::get('/friends', 'UserController@my_friends')->name('my_friends')->middleware('auth');;
+Route::get('/friends', 'UserController@my_friends')->name('my_friends')->middleware('auth');
 
 // PEOPLE AND FRIENDS
 Route::get('/people', 'PeopleController@people')->name('people');
@@ -48,11 +48,16 @@ Route::post('/people/make_subscriber', 'PeopleController@make_subscriber')
 	->middleware('auth');
 
 // SUBSCRIBERS
-Route::get('/subscribers', 'UserController@subscribers')->name('subscribers')->middleware('auth');;
+Route::get('/subscribers', 'UserController@subscribers')->name('subscribers')->middleware('auth');
 
 // POSTS
 
 Route::post('/post_record', 'PostsController@store')->name('post_record')->middleware('auth');
 Route::get('/post_edit/{id}', 'PostsController@edit')->name('post_edit')->middleware('auth');
 Route::post('/post_update', 'PostsController@update')->name('post_update')->middleware('auth');
-Route::get('/post_delete/{id}', 'PostsController@destroy')->name('post_delete')->middleware('auth');;
+Route::get('/post_delete/{id}', 'PostsController@destroy')->name('post_delete')->middleware('auth');
+
+// TO LIKE
+
+Route::get('/post_like', 'PostsController@post_like')->name('post_like')->middleware('auth');
+Route::get('/post_dislike', 'PostsController@post_dislike')->name('post_dislike')->middleware('auth');

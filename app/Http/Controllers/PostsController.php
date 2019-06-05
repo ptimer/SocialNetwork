@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use Auth;
+use App\Like;
+use App\User;
 
 class PostsController extends Controller
 {
@@ -91,6 +93,30 @@ class PostsController extends Controller
     public function destroy($id)
     {
         Post::find($id)->delete();
+        return redirect()->back();
+    }
+
+
+    public function post_like(Request $request)
+    {
+
+        if(Like::where([['user_id', '=', Auth::user()->id],['post_id', '=', $request->id]])->first() == null)
+        {
+            $like = new Like;
+            $like->user_id = Auth::user()->id;
+            $like->post_id = $request->id;
+            $like->save();
+
+            return redirect()->back();
+        }
+
+        return redirect()->back();
+    }
+
+    public function post_dislike(Request $request)
+    {
+        Like::find($request->id)->delete();
+
         return redirect()->back();
     }
 }

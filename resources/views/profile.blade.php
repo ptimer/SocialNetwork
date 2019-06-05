@@ -47,6 +47,25 @@
                             <p class="font-weight-normal">{{ $post->description }}</p>
                         
                             <i>Дата публикации: {{ $post->created_at }}</i>
+
+                            @if(Auth::check())
+                                      @php 
+                                        $results = $post->likes->where('user_id', Auth::user()->id)->first()
+                                      @endphp
+                                      @if($results == null)
+                                        <a href="{{ route('post_like', ['id' => $post->id]) }}" class="btn btn-default btn-sm">
+                                            <button type="button" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span> Нравится
+                                            </button>
+                                        </a>
+                                      @else
+                                        <a href="{{ route('post_dislike', ['id' => $results->id]) }}" class="btn btn-default btn-sm">
+                                            <button type="button" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span> Не нравится
+                                            </button>
+                                        </a>
+                                      @endif
+                            @endif
                         </div>
                         
                         @if(Auth::check() && Auth::user()->id == $user_id)       
