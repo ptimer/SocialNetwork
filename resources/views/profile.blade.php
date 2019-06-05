@@ -66,6 +66,15 @@
                                         </a>
                                       @endif
                             @endif
+
+                            Лайков: <b>{{ $post->likes->count() }}</b>
+                            <div>
+                                @foreach($post->likes as $like)
+                                    <a href="{{ route('profile', ['id' => $like->user->id]) }}" title="{{ $like->user->lastname . ' ' . $like->user->firstname}}">
+                                        <img src="/uploads/avatars/{{ $like->user->avatar }}" style="width: 30px; height: 30px; border-radius: 10%;">
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                         
                         @if(Auth::check() && Auth::user()->id == $user_id)       
