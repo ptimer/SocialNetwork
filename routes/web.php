@@ -53,5 +53,6 @@ Route::get('/subscribers', 'UserController@subscribers')->name('subscribers')->m
 // POSTS
 
 Route::post('/post_record', 'PostsController@store')->name('post_record')->middleware('auth');
+Route::get('/post_edit/{id}', 'PostsController@edit')->name('post_edit')->middleware('auth');
 Route::post('/post_update', 'PostsController@update')->name('post_update')->middleware('auth');
-Route::post('/post_delete', 'PostsController@delete')->name('post_delete')->middleware('auth');;
+Route::get('/post_delete/{id}', 'PostsController@destroy')->name('post_delete')->middleware('auth');;

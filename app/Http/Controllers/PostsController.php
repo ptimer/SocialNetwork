@@ -38,10 +38,6 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'description' => 'required|string|max:1000'
-        ]);
-
         $post = new Post();
         $post->description = $request->post;
         $post->user_id = Auth::user()->id;
@@ -69,7 +65,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('posts.edit', ['post' => Post::where('id', $id)->first()]);
     }
 
     /**
@@ -79,9 +75,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        Post::where('id', $request->id)->update(['description' => $request->post]);
+        
+        return redirect('profile/'.Auth::user()->id);
     }
 
     /**
@@ -92,6 +90,7 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return redirect()->back();
     }
 }

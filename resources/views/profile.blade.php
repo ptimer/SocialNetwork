@@ -50,8 +50,8 @@
                         </div>
                         
                         @if(Auth::check() && Auth::user()->id == $user_id)       
-                           <a href="{{ route('post_update') }}" class="btn btn-outline-success">Редактировать</a> 
-                           <a href="{{ route('post_delete') }}" class="btn btn-outline-danger">Удалить</a> 
+                           <a href="{{ route('post_edit', ['id' => $post->id]) }}" class="btn btn-outline-success">Редактировать</a> 
+                           <a href="{{ route('post_delete', ['id' => $post->id]) }}" class="btn btn-outline-danger">Удалить</a> 
                         @endif
                     @endforeach
                 </div>
