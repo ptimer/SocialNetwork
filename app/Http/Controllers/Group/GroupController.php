@@ -36,4 +36,33 @@ class GroupController extends Controller
 		    return redirect()->back();
 		}
     }
+
+    public function createGroup(){
+    	return view('group.create');
+    }
+
+    public function store(Request $request){
+    	
+    	$createdGroup = Group::create(['name' => request('name'),
+    		'description' => request('description'),
+    		'user_id' => auth::user()->id,
+    	]);
+
+    	if (!$createdGroup->subscribers->contains(auth::user()->id)) {
+		    $createdGroup->subscribers()->attach(auth::user()->id);
+		    return redirect(route('group.myGroupsAdmin'));
+		}
+
+    	return redirect(route('group.myGroupsAdmin'));
+    }
+
+    public function myGroupsAdmin(){
+    	$groups = Group::where('user_id', auth::user()->id)->get();
+    	return view('group.myGroupsAdmin', ['groups' => $groups]);
+    }
+
+    public function myGroups(){
+    	$groups = auth::user()->groups()->get();
+    	return view('group.myGroups', ['groups' => $groups]);
+    }
 }

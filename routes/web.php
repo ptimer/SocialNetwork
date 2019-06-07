@@ -68,3 +68,8 @@ Route::get('/group/{id}', 'Group\GroupController@index')->name('group.index');
 Route::get('/groups/list', 'Group\GroupController@list')->name('group.list');
 Route::post('/groups/subscribe', 'Group\GroupController@subscribe')->name('group.subscribe')->middleware('auth');
 Route::post('/groups/unsubscribe', 'Group\GroupController@unsubscribe')->name('group.unsubscribe')->middleware('auth');
+Route::post('/groups/createGroup', 'Group\GroupController@createGroup')->name('group.createGroup')->middleware('auth');
+Route::get('/groups/myGroupsAdmin', 'Group\GroupController@myGroupsAdmin')->name('group.myGroupsAdmin')->middleware('auth');
+Route::get('/groups/myGroups', 'Group\GroupController@myGroups')->name('group.myGroups')->middleware('auth');
+Route::get('/groups/createGroup', 'Group\GroupController@createGroup')->name('group.createGroup')->middleware('auth');
+Route::post('/groups/store', 'Group\GroupController@store')->name('group.store')->middleware('auth');

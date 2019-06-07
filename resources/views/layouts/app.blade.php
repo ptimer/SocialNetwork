@@ -76,6 +76,9 @@
                                     <a class="dropdown-item" href="{{ route('profile', ['id' => Auth::user()->id]) }} ">
                                         {{ __('Profile') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('group.myGroups') }} ">
+                                        {{ __('Мои сообщества') }}
+                                    </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
