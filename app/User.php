@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function likes(){
         return $this->hasMany('App\Like');
     }
+
+    public function groups(){
+        return $this->belongsToMany('App\Group');
+    }
 }

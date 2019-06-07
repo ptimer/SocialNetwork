@@ -61,3 +61,10 @@ Route::get('/post_delete/{id}', 'PostsController@destroy')->name('post_delete')-
 
 Route::get('/post_like', 'PostsController@post_like')->name('post_like')->middleware('auth');
 Route::get('/post_dislike', 'PostsController@post_dislike')->name('post_dislike')->middleware('auth');
+
+// GROUPS
+
+Route::get('/group/{id}', 'Group\GroupController@index')->name('group.index');
+Route::get('/groups/list', 'Group\GroupController@list')->name('group.list');
+Route::post('/groups/subscribe', 'Group\GroupController@subscribe')->name('group.subscribe')->middleware('auth');
+Route::post('/groups/unsubscribe', 'Group\GroupController@unsubscribe')->name('group.unsubscribe')->middleware('auth');

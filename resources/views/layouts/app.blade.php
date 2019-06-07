@@ -53,6 +53,9 @@
                                 <a class="nav-link" href="{{ route('people') }}">{{ __('Люди') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('group.list') }}">{{ __('Сообщества') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('my_friends') }}">{{ __('Мои друзья') }}</a>
                             </li>
                             <li class="nav-item">

@@ -10,8 +10,6 @@ use App\User;
 
 class PostsController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -93,7 +91,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         Post::find($id)->delete();
-        Like::where([['user_id', '=', Auth::user()->id],['post_id', '=', $id]])->delete();
+        Like::where([['post_id', '=', $id]])->delete();
         return redirect()->back();
     }
 
