@@ -73,3 +73,11 @@ Route::get('/groups/myGroupsAdmin', 'Group\GroupController@myGroupsAdmin')->name
 Route::get('/groups/myGroups', 'Group\GroupController@myGroups')->name('group.myGroups')->middleware('auth');
 Route::get('/groups/createGroup', 'Group\GroupController@createGroup')->name('group.createGroup')->middleware('auth');
 Route::post('/groups/store', 'Group\GroupController@store')->name('group.store')->middleware('auth');
+
+// MESSAGES
+
+Route::get('/message/myMessages', 'Message\MessageController@myMessages')->name('message.myMessages')->middleware('auth');
+Route::get('message/contacts', 'Message\MessageController@contacts')->middleware('auth');
+Route::get('/conversation/{id}', 'Message\MessageController@getMessagesFor')->middleware('auth');
+
+Route::post('/conversation/send', 'Message\MessageController@send')->middleware('auth');
